@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            
+
             // Animate Hamburger
             const bars = hamburger.querySelectorAll('.bar');
             if (navLinks.classList.contains('active')) {
@@ -37,14 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scroll Reveal Animation via IntersectionObserver
     const revealElements = document.querySelectorAll('.scroll-reveal');
-    
+
     // Polyfill or fallback could go here, but IntersectionObserver is widely supported
     const revealOptions = {
         threshold: 0.15,
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const revealObserver = new IntersectionObserver(function(entries, observer) {
+    const revealObserver = new IntersectionObserver(function (entries, observer) {
         entries.forEach(entry => {
             if (!entry.isIntersecting) {
                 return;
@@ -84,3 +84,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+function sayHello() {
+    const input = document.getElementById('contact-email');
+    const email = input ? input.value.trim() : '';
+
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+        if (input) {
+            input.classList.add('input-error');
+            input.focus();
+            setTimeout(() => input.classList.remove('input-error'), 600);
+        }
+        return;
+    }
+
+    const subject = encodeURIComponent("Hello from your Portfolio!");
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}&su=${subject}`;
+    window.open(gmailUrl, '_blank');
+}
